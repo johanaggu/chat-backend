@@ -1,8 +1,9 @@
 // Import packages
 const express = require("express")
+
 const { config } =require("./config")
 const routes = require("./network/routes")
-
+const connectMongo = require("./db")
 // Use packages
 const app = express()
 
@@ -10,7 +11,7 @@ const app = express()
 app.use(express.json())
 app.use("/static", express.static("public"))
 app.use(express.urlencoded({extended:true}))
-
+connectMongo()
 //-Router
 routes(app) 
 

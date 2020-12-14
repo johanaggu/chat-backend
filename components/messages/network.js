@@ -1,5 +1,5 @@
 const express = require("express")
-const { addMessages, getMessages } = require("./controller")
+const { addMessages, getMessages, updateMessage } = require("./controller")
 
 const response = require("../../network/responses")
 
@@ -7,7 +7,8 @@ const router = express.Router()
 
 //Router
 router.get("/",( req, res)=>{
-    getMessages()
+    const { user } = req.query
+    getMessages({user})
         .then(data =>{
             response.succes(req, res, "Lista de mensajes", 200, data)
         })
@@ -28,6 +29,20 @@ router.post("/", ( req, res)=>{
             response.error(req, res, "error simulado", 400, err )
         })
         
+})
+
+router.patch("/:id",(req, res)=>{
+    const { id } = req.params
+    const { message } = req.body.message
+    
+    updateMessage(id,message)
+        .then(data=>{
+            response.succes(req,res,"Mensage actualizado", 200, data)
+        })
+        .catch(err => {
+            console.log(err);
+            response.error(req,res,"No se pudo actualizar", 500, "no se encontro el mensage")
+        })
 })
 
 module.exports = router
