@@ -1,13 +1,13 @@
-let succes = (req, res, message, status) => {
+let succes = (req, res, message, status, details) => {
     res.status(status || 200).json({
         message,
-        data: []
+        data: [details]
     })
 }
-let error = (req, res, message, status, detalles) => {
+let error = (req, res, message, status, details) => {
     res.status(status || 500).json({
         message,
-        data: [detalles]
+        data: [details]
     })
     
 }
