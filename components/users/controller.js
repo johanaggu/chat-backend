@@ -1,27 +1,23 @@
-let { createOne/* , getAll, updateOne */ }  = require("./store")
+let { createOne, getAll }  = require("./store")
 
-let addMessages = (user)=>{
-    
-    return createOne(user)
+let addUser = (user)=>{
+    return new Promise((resolve, reject)=>{
+        let userCreated = createOne(user)
+        if (!user) {
+            return reject("No hay data")
+        }
+        resolve(userCreated)
+    })    
 }
-// let getMessages = ({user}) => {
-//     return new Promise((resolve, reject)=>{
-//        let getMessages =  getAll({user})
-//        resolve(getMessages)
-//     })
-// }
-// let updateMessage = (id , message)=>{
-//     return new Promise(async(resolve, reject)=>{
-//         if(!id || !message){
-//             reject("No hay id o message")
-//             return false
-//         }
-//         const messageUpdated = await updateOne(id,message)
-//         resolve(messageUpdated)
-//     })
-// }
+
+let getUser = (userId)=>{
+    return new Promise((resolve, reject)=>{
+        let usersListed = getAll(userId)
+        resolve(usersListed)
+    })
+}
+
 module.exports = {
-    addMessages,
-    getMessages,
-    updateMessage
+    addUser,
+    getUser,
 }

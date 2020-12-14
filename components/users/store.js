@@ -1,22 +1,17 @@
 const userModel = require("./model")
 
-let createOne = (user) => {
-    let userCreated = userModel.insertMany([user])
+let createOne = async (user) => {
+    let userCreated = await userModel.insertMany([user])
     return userCreated
 }
+let getAll = async (userId) => {
+    let query = userId ? {_id: userId}: {}    
+    let users = await userModel.find(query)
+    return users
+}
 
-// let getAll = async ({id}) => {
-//     const query= id? {_id:id}:{} ;
-//     const messages = await userModel.find(query)
-//     return messages
-// }
-// let updateOne = async (id, message) => {
-//     const messageUpdate = await userModel.updateOne({_id:id }, {message: message})
-//     return messageUpdate
-// }
 
 module.exports  = {
     createOne,
-    // getAll,
-    // updateOne,
+    getAll,
 }

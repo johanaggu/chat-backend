@@ -8,6 +8,6 @@ const userSchema= new Schema({
     }
 })
 
-const userModel = mongoose.model("messages", userSchema)
+const userModel = mongoose.model("users", userSchema)
 
 module.exports = userModel

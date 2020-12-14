@@ -12,14 +12,16 @@ let addMessages = (user, message)=>{
             message,
             date: new Date()
         }
-        createOne(fullMessage)
-        resolve(fullMessage)
+        let messageCreated = createOne(fullMessage)
+        resolve(messageCreated)
     })
 }
 let getMessages = ({user}) => {
     return new Promise((resolve, reject)=>{
-       let getMessages =  getAll({user})
-       resolve(getMessages)
+       getAll({user})
+        .then(getMessages=>{
+            resolve(getMessages) 
+        })
     })
 }
 let updateMessage = (id , message)=>{
