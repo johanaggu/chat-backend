@@ -1,4 +1,3 @@
-const { populate } = require("./model")
 const modelMessage = require("./model")
 
 let createOne = async (message) => {
@@ -9,16 +8,16 @@ let createOne = async (message) => {
 let getAll = ({user}) => {
     return new Promise((resolve, reject)=>{
         const query= user? {user:user}:{} ;
-        const messages =  modelMessage
-        .find(query)
-        .populate("user")
-        .exec((err, populated)=>{
-            if (err) {
-                reject(err)
-            }else{
-                resolve(populated)
-            }
-        })
+        modelMessage
+            .find(query)
+            .populate("user")
+            .exec((err, populated)=>{
+                if (err) {
+                    reject(err)
+                }else{
+                    resolve(populated)
+                }
+            })
     }) 
 }
 let updateOne = async (id, message) => {

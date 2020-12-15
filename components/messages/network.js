@@ -1,8 +1,12 @@
 const express = require("express")
-const { addMessages, getMessages, updateMessage } = require("./controller")
+const multer = require("multer")
 
 const response = require("../../network/responses")
+const { addMessages, getMessages, updateMessage } = require("./controller")
 
+const upload = multer({
+    dest: "./public/files"
+})
 const router = express.Router()
 
 //Router
@@ -17,10 +21,11 @@ router.get("/",( req, res)=>{
         })
 })
 
-router.post("/", ( req, res)=>{
-    const {user, message} = req.body;
+router.post("/",upload.single("file"), ( req, res)=>{
+    console.log(req.file);
+    const {user, message, chat} = req.body;
 
-    addMessages(user, message)
+    addMessages(user, message, chat)
         .then(data => {
             response.succes(req, res, "Todo bien", 200, data)
         })

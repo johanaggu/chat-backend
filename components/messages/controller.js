@@ -1,15 +1,16 @@
 const messageModel = require("./model");
 let { createOne, getAll, updateOne }  = require("./store")
 
-let addMessages = (user, message)=>{
+let addMessages = (user, message, chat)=>{
     return new Promise((resolve, reject)=>{
-        if(!user || !message) {
+        if(!user || !message || !chat) {
              console.log("[No hay usuario o contraseña]");
             return reject("DATA INCORRECTA")
         } 
         const fullMessage = {
             user,
             message,
+            chat,
             date: new Date()
         }
         let messageCreated = createOne(fullMessage)
