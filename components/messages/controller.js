@@ -1,19 +1,27 @@
-const messageModel = require("./model");
+const { socket } = require("../../socket");
 let { createOne, getAll, updateOne }  = require("./store")
 
-let addMessages = (user, message, chat)=>{
+let addMessages = (user, message, chat, file)=>{
     return new Promise((resolve, reject)=>{
         if(!user || !message || !chat) {
              console.log("[No hay usuario o contraseña]");
             return reject("DATA INCORRECTA")
         } 
+        let fileUrl = "";
+
+        if (file) {
+            fileUrl = "http://localhost:4000/static/files/"+file.filename
+            console.log(fileUrl);
+        }
         const fullMessage = {
             user,
             message,
             chat,
+            file: fileUrl,
             date: new Date()
         }
         let messageCreated = createOne(fullMessage)
+        socket.io.emit("message", fullMessage)
         resolve(messageCreated)
     })
 }

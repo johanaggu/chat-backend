@@ -16,6 +16,10 @@ const messagesSchema= new Schema({
         ref:"chats",
         required:true
     },
+    file: {
+        type: String,
+        required: false
+    },
     date:{
         type: Date,
         required: true
